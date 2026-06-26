@@ -1,0 +1,57 @@
+default_target: ucm-imx8m-plus
+supported_targets:
+  - ucm-imx8m-plus
+
+extensions:
+  avocado-bsp-iot-gate-imx8plus:
+    version: 0.1.0
+    release: r0
+    summary: Carrier board support for the CompuLab IOT-GATE-iMX8PLUS gateway
+    description: >-
+      Gateway carrier support for the CompuLab IOT-GATE-iMX8PLUS, built on the
+      UCM-iMX8M-Plus SOM (target ucm-imx8m-plus). Selects the iot-gate-imx8plus
+      device tree at boot and brings up the gateway peripherals (cellular modem,
+      GPS, CAN).
+    license: Apache-2.0
+    url: https://github.com/avocadolinux/avocado-os
+    vendor: Avocado Linux <info@avocadolinux.org>
+
+    types:
+      - sysext
+      - confext
+
+    # Autoload the CompuLab cellular-modem (MHI) and CAN drivers.
+    modprobe:
+      - mhinet
+      - mhitty
+      - mhiuci
+      - flexcan
+      - can-dev
+
+    on_merge:
+      # Composable DTB-selection seam: this extension ships
+      # /etc/avocado/devicetree.d/50-iot-gate.conf (DEVICETREE=iot-gate-imx8plus.dtb
+      # + optional OVERLAYS). avocado-devicetree-apply reconciles every fragment
+      # into the u-boot env (devicetree_file + fdt_overlays); u-boot applies the
+      # base + overlay stack at boot. Effective next reboot. Idempotent.
+      - /usr/libexec/avocado-devicetree-apply
+      - udevadm control --reload
+      - udevadm trigger --type=subsystems --action=add --settle
+      - udevadm trigger --type=devices --action=add --settle
+
+    overlay: overlay
+
+    # Carrier-only: layers on top of avocado-bsp-ucm-imx8m-plus (which carries
+    # the SOM platform modules). Just the gateway peripherals here.
+    packages:
+      # CAN bus (i.MX8MP FlexCAN, exposed on the IOT-GATE carrier).
+      kernel-module-flexcan: '*'
+      kernel-module-can-dev: '*'
+      kernel-module-can-raw: '*'
+      # TODO: cellular-modem (MHI) + GPS userspace (modemmanager, gpsd, ppp)
+      # once those are built into the ucm-imx8m-plus feed (gpsd isn't yet;
+      # gps-utils was never a real package). Re-add when the rest of the
+      # gateway userspace stack is up.
+
+sdk:
+  image: docker.io/avocadolinux/sdk:{{ env.AVOCADO_DISTRO_RELEASE }}
