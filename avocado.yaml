@@ -55,3 +55,9 @@ extensions:
 
 sdk:
   image: docker.io/avocadolinux/sdk:{{ env.AVOCADO_DISTRO_RELEASE }}
+
+  packages:
+    # The SDK container ships no mkfs.erofs; without this the extension content
+    # builds and then the image step dies on command-not-found. Same reason the
+    # hello and docker extensions carry it.
+    nativesdk-erofs-utils: '*'
