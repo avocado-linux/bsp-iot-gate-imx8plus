@@ -41,8 +41,8 @@ extensions:
 
     overlay: overlay
 
-    # Carrier-only: layers on top of avocado-bsp-ucm-imx8m-plus (which carries
-    # the SOM platform modules). Just the gateway peripherals here.
+    # Carrier-only: there is no separate SOM BSP extension. Just the gateway
+    # peripherals here.
     packages:
       # CAN bus (i.MX8MP FlexCAN, exposed on the IOT-GATE carrier).
       kernel-module-flexcan: '*'
