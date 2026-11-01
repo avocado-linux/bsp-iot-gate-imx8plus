@@ -12,4 +12,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `iot-gate-imx8plus` device tree at boot and brings up the gateway CAN bus.
 - CI via the shared `avocado-linux/actions` reusable workflows: PR build check
   (`test.yml`) and tag-driven package + publish to the Avocado feed
-  (`release.yml`), both against `ucm-imx8m-plus` @ 2024/edge-next.
+  (`release.yml`), both against `ucm-imx8m-plus` on the 2024 and 2026 next
+  feeds.

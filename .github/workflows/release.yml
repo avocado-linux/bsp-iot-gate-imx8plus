@@ -4,8 +4,8 @@ name: Release
 # each leg calls the single-combo reusable helper. The publish feed is derived from
 # distro-release/distro-channel. The tag must equal the avocado.yaml version.
 #
-# Carrier BSP: builds against the UCM-iMX8M-Plus SOM (ucm-imx8m-plus). Its upstream
-# packages currently live in 2024/edge-next, so that is the only publish leg.
+# Carrier BSP: builds against the UCM-iMX8M-Plus SOM (ucm-imx8m-plus), which both
+# the 2024 and 2026 next feeds declare.
 on:
   push:
     tags:
@@ -19,6 +19,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - { target: ucm-imx8m-plus, distro-release: "2026", distro-channel: next }
           - { target: ucm-imx8m-plus, distro-release: "2024", distro-channel: next }
     uses: avocado-linux/actions/.github/workflows/extension-release.yml@v1
     with:

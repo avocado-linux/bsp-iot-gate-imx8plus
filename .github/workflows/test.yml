@@ -4,8 +4,7 @@ name: Test
 # calls the single-combo reusable helper. Add rows for more targets/feeds as needed.
 #
 # This is a carrier BSP: the buildable MACHINE is the UCM-iMX8M-Plus SOM
-# (ucm-imx8m-plus), whose feed currently carries this extension's upstream
-# packages in 2024/edge-next.
+# (ucm-imx8m-plus), declared in both the 2024 and 2026 next feeds.
 on:
   pull_request:
   workflow_dispatch:
@@ -16,6 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - { target: ucm-imx8m-plus, distro-release: "2026", distro-channel: next }
           - { target: ucm-imx8m-plus, distro-release: "2024", distro-channel: next }
     uses: avocado-linux/actions/.github/workflows/extension-test.yml@v1
     with:
