@@ -14,3 +14,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   (`test.yml`) and tag-driven package + publish to the Avocado feed
   (`release.yml`), both against `ucm-imx8m-plus` on the 2024 and 2026 next
   feeds.
+- `avocado-devicetree` in the package set: `on_merge` runs its
+  `avocado-devicetree-apply`, and without it the extension merge failed.
+
+### Removed
+- The `mhinet`, `mhitty` and `mhiuci` autoloads: neither feed builds those
+  modules. The in-tree MHI drivers bind by PCI modalias.

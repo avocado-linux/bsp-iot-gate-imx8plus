@@ -20,11 +20,9 @@ extensions:
       - sysext
       - confext
 
-    # Autoload the CompuLab cellular-modem (MHI) and CAN drivers.
+    # Autoload the CAN drivers. The cellular modem's MHI drivers (mhi-pci-generic,
+    # mhi-wwan-*) bind by PCI modalias and need no entry here.
     modprobe:
-      - mhinet
-      - mhitty
-      - mhiuci
       - flexcan
       - can-dev
 
@@ -48,6 +46,9 @@ extensions:
       kernel-module-flexcan: '*'
       kernel-module-can-dev: '*'
       kernel-module-can-raw: '*'
+      # Provides /usr/libexec/avocado-devicetree-apply, which on_merge runs to
+      # select the gateway DTB. Without it the merge fails.
+      avocado-devicetree: '*'
       # TODO: cellular-modem (MHI) + GPS userspace (modemmanager, gpsd, ppp)
       # once those are built into the ucm-imx8m-plus feed (gpsd isn't yet;
       # gps-utils was never a real package). Re-add when the rest of the
