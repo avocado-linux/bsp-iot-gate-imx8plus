@@ -11,7 +11,7 @@ extensions:
       Gateway carrier support for the CompuLab IOT-GATE-iMX8PLUS, built on the
       UCM-iMX8M-Plus SOM (target ucm-imx8m-plus). Selects the iot-gate-imx8plus
       device tree at boot and brings up the gateway peripherals (cellular modem,
-      GPS, CAN).
+      GPS, CAN, the optional M.2 TPM card).
     license: Apache-2.0
     url: https://github.com/avocadolinux/avocado-os
     vendor: Avocado Linux <info@avocadolinux.org>
@@ -49,6 +49,11 @@ extensions:
       # Provides /usr/libexec/avocado-devicetree-apply, which on_merge runs to
       # select the gateway DTB. Without it the merge fails.
       avocado-devicetree: '*'
+      # The M.2 TPM card (iot-gate-imx8plus-m2tpm.dtb): the SPI TPM driver and
+      # the gpio-reset controller that releases the TPM from reset. Both bind
+      # by modalias.
+      kernel-module-tpm-tis-spi: '*'
+      kernel-module-gpio-reset: '*'
       # TODO: cellular-modem (MHI) + GPS userspace (modemmanager, gpsd, ppp)
       # once those are built into the ucm-imx8m-plus feed (gpsd isn't yet;
       # gps-utils was never a real package). Re-add when the rest of the

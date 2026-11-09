@@ -16,6 +16,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   feeds.
 - `avocado-devicetree` in the package set: `on_merge` runs its
   `avocado-devicetree-apply`, and without it the extension merge failed.
+- Support for the optional M.2 TPM card: boots `iot-gate-imx8plus-m2tpm.dtb`
+  (SLB9670 on ecspi2) and installs `kernel-module-tpm-tis-spi` and
+  `kernel-module-gpio-reset`. Without the card the TPM probe fails and
+  ecspi2's spidev is not exposed.
 
 ### Removed
 - The `mhinet`, `mhitty` and `mhiuci` autoloads: neither feed builds those
