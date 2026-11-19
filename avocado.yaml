@@ -13,7 +13,7 @@ extensions:
       device tree at boot and brings up the gateway peripherals (cellular modem,
       GPS, CAN, the optional M.2 TPM card).
     license: Apache-2.0
-    url: https://github.com/avocadolinux/avocado-os
+    url: https://github.com/avocado-linux/bsp-iot-gate-imx8plus
     vendor: Avocado Linux <info@avocadolinux.org>
 
     types:
